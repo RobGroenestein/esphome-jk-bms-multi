@@ -23,8 +23,7 @@ CONFIG_SCHEMA = (
                 accuracy_decimals=2,
             )),
         }
-    )
-    .extend(uart.UART_DEVICE_SCHEMA)
+    ).extend(uart.UART_DEVICE_SCHEMA)
 )
 
 async def to_code(config):
@@ -39,3 +38,6 @@ async def to_code(config):
     for i, conf in enumerate(config["voltage"]):
         sens = await sensor.new_sensor(conf)
         cg.add(var.voltage_sensors[i] = sens)
+
+# 👇 Deze regel maakt dat je YAML key 'jk_bms_multi:' werkt
+cv.declare_component("jk_bms_multi", JkBmsMulti, CONFIG_SCHEMA)
