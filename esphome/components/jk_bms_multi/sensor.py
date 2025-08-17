@@ -39,3 +39,5 @@ async def to_code(config):
     for i, conf in enumerate(config["voltage"]):
         sens = await sensor.new_sensor(conf)
         cg.add(var.voltage_sensors[i] = sens)
+
+cv.declare_component("jk_bms_multi", JkBmsMulti, CONFIG_SCHEMA)
