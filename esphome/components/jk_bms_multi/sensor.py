@@ -34,8 +34,8 @@ async def to_code(config):
 
     for i, conf in enumerate(config["soc"]):
         sens = await sensor.new_sensor(conf)
-        cg.add(var.soc_sensors[i] = sens)
+        var.soc_sensors[i] = sens   # <— gewoon Python toewijzing
 
     for i, conf in enumerate(config["voltage"]):
         sens = await sensor.new_sensor(conf)
-        cg.add(var.voltage_sensors[i] = sens)
+        var.voltage_sensors[i] = sens
