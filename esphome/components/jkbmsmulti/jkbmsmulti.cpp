@@ -17,10 +17,25 @@ void JkBmsMultiComponent::loop() {
     this->read_byte(&byte);
     this->rx_buffer_.push_back(byte);
     
-    // Check for a complete frame. A JK-BMS frame starts with 0x4E and ends with 0x57.
-    if (this->rx_buffer_.size() > 2 && this->rx_buffer_.back() == 0x57) {
-      this->parse_frame();
-      this->rx_buffer_.clear();
+    // De oude check, die vaak misgaat bij verkeerde baudrate
+    // if (this->rx_buffer_.back() == 0x57) {
+    //   this->parse_frame();
+    //   this->rx_buffer_.clear();
+    // }
+
+    // Nieuwe, robuustere check
+    // Als de buffer een start byte heeft, maar te groot wordt, wissen we hem.
+    if (this->rx_buffer_.size() > 256) {
+        ESP_LOGW(TAG, "UART buffer overflow, clearing.");
+        this->rx_buffer_.clear();
+    }
+    
+    // Parsen zodra er een startbyte wordt gevonden en de buffer lang genoeg is
+    // Let op: deze logica is gebaseerd op de 106-byte lengte.
+    // Dit is een simpele parsing methode, een meer geavanceerde zou een state machine gebruiken.
+    if (this->rx_buffer_.size() >= 106 && this->rx_buffer_[0] == 0x4E) {
+        this->parse_frame();
+        this->rx_buffer_.clear();
     }
   }
 }
