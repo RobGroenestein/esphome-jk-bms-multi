@@ -25,7 +25,7 @@ void JkBmsMultiComponent::loop() {
 
     // Nieuwe, robuustere check
     // Als de buffer een start byte heeft, maar te groot wordt, wissen we hem.
-    if (this->rx_buffer_.size() > 256) {
+    if (this->rx_buffer_.size() > 384) {
         ESP_LOGW(TAG, "UART buffer overflow, clearing.");
         this->rx_buffer_.clear();
     }
