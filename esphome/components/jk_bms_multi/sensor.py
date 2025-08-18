@@ -1,4 +1,3 @@
-# sensor.py - Aangepaste versie voor jk_bms_multi
 import esphome.codegen as cg
 import esphome.config_validation as cv
 from esphome.components import sensor, uart
@@ -7,8 +6,8 @@ from esphome.const import CONF_ID, ICON_EMPTY, UNIT_EMPTY
 DEPENDENCIES = ["uart"]
 CODEOWNERS = ["@RobGroenestein"]
 
-jk_bms_multi_ns = cg.esphome_ns.namespace("jk_bms_multi")
-JkBmsMultiComponent = jk_bms_multi_ns.class_("JkBmsMultiComponent", cg.Component)
+jkbmsmulti_ns = cg.esphome_ns.namespace("jkbmsmulti")
+JkBmsMultiComponent = jkbmsmulti_ns.class_("JkBmsMultiComponent", cg.Component)
 
 CONFIG_SCHEMA = cv.Schema(
     {
