@@ -13,7 +13,7 @@ JkBmsMulti = jk_ns.class_("JkBmsMulti", cg.Component, uart.UARTDevice)
 CONFIG_SCHEMA = (
     cv.Schema(
         {
-            cv.GenerateID(): cv.declare_id(JkBmsMulti),
+            cv.GenerateID(): cv.declare_id(JkBmsMulti),   # <-- vereist 'id:' in YAML
             cv.Required("soc"): cv.ensure_list(sensor.sensor_schema(
                 unit_of_measurement=UNIT_PERCENT,
                 icon=ICON_BATTERY,
